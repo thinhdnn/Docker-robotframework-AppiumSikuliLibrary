@@ -9,7 +9,10 @@ ENV PATH "/opt/bin/chromedriver-linux64:$PATH"
 
 # Install necessary packages
 RUN apt-get update && \
-    apt-get install -y \
+    apt-get install -y software-properties-common && \
+    add-apt-repository ppa:alex-p/tesseract-ocr-devel
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends \
         fontconfig \
         fonts-roboto \
         maven \
