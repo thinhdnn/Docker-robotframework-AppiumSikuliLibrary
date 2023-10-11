@@ -4,7 +4,7 @@ on:
     workflow_dispatch:
     push:
       branches:
-        - main
+        - arm64
 
 jobs:
 
@@ -30,4 +30,4 @@ jobs:
         context: .
         file: ./Dockerfile
         push: true
-        tags: ${{ secrets.DOCKERHUB_USERNAME }}/sikuli-xpra:latest
+        tags: ${{ secrets.DOCKERHUB_USERNAME }}/sikuli-xpra-arm64:latest
