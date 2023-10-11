@@ -1,4 +1,4 @@
-FROM arm64v8/ubuntu:jammy
+FROM ubuntu:jammy
 
 # Set environment variable
 ENV TZ=Asia/Ho_Chi_Minh
