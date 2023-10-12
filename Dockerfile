@@ -10,7 +10,8 @@ ENV PATH "/opt/bin/chromedriver-linux64:$PATH"
 # Install necessary packages
 RUN apt-get update && \
     apt-get install -y software-properties-common && \
-    add-apt-repository ppa:alex-p/tesseract-ocr-devel
+    add-apt-repository ppa:alex-p/tesseract-ocr-devel && \
+    add-apt-repository ppa:saiarcot895/chromium-beta
 RUN apt-get update && \
     apt-get install -y --no-install-recommends \
         fontconfig \
@@ -27,6 +28,7 @@ RUN apt-get update && \
         wget \
         x11-apps \
         xserver-xorg-video-dummy && \
+        chromium-browser && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
 
@@ -48,12 +50,8 @@ RUN curl -o temurin.tar.gz -L "https://github.com/adoptium/temurin17-binaries/re
 # Install Robot Framework and SikuliLibrary
 RUN pip3 install robotframework XlsxWriter robotframework-SeleniumLibrary robotframework-AppiumSikuliLibrary
 
-# Install Google Chrome and Driver
-RUN wget -q -O - https://dl-ssl.google.com/linux/linux_signing_key.pub | apt-key add - && \
-    echo "deb http://dl.google.com/linux/chrome/deb/ stable main" >> /etc/apt/sources.list.d/google.list && \
-    apt-get update -y && \
-    apt-get install -y google-chrome-stable && \
-    curl -s https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions.json | grep -Po '\d+\.\d+\.\d+\.\d+' | head -1 > chrome-version && \
+# Install Driver
+RUN curl -s https://googlechromelabs.github.io/chrome-for-testing/last-known-good-versions.json | grep -Po '\d+\.\d+\.\d+\.\d+' | head -1 > chrome-version && \
     wget https://edgedl.me.gvt1.com/edgedl/chrome/chrome-for-testing/`cat chrome-version`/linux64/chromedriver-linux64.zip && \
     unzip chromedriver-linux64.zip -d /opt/bin/ && \
     rm chromedriver-linux64.zip && \
