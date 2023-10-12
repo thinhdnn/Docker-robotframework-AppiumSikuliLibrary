@@ -27,7 +27,7 @@ RUN apt-get update && \
         ca-certificates \
         wget \
         x11-apps \
-        xserver-xorg-video-dummy && \
+        xserver-xorg-video-dummy \
         chromium-browser && \
     apt-get autoremove -y && \
     rm -rf /var/lib/apt/lists/*
